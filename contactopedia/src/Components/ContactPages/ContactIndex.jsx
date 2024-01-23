@@ -17,23 +17,36 @@ class ContactIndex extends React.Component{
                     id:1,
                     name: "Ben Parker",
                     email: "ben@gmail.com",
+                    phone: 44444444,
                     isFavorite: false,
                 },
                 {
                     id:2,
                     name: "Sam Parker",
                     email: "Sam@gmail.com",
+                    phone: 44444444,
                     isFavorite: true,
                 },
                 {
                     id:3,
                     name: "Harry Parker",
                     email: "Harry@gmail.com",
+                    phone: 44444444,
                     isFavorite: true,
                 },
             ]
         }
     }
+
+handleAddContact = (newContact) => {
+    const newFinalContact = {...newContact, id:this.state.contactList[this.state.contactList.length-1].id+1,
+    isFavorite:false,}
+    this.setState((prevState)=>{
+        return {
+            contactList: prevState.contactList.concat([newFinalContact]),
+        }
+    })
+}
 
     render(){
         return(
@@ -48,17 +61,23 @@ class ContactIndex extends React.Component{
                             <RemoveAllContact/>
                         </div>
                         <div className="row py-2">
-                            <AddContact />
+                            <div className="col-8 offset-2 row">
+                            <AddContact handleAddContact={this.handleAddContact} />
+                            </div>
                         </div>
                         <div className="row py-2">
+                        <div className="col-8 offset-2 row">
                             <FavouriteContact 
                             contacts={this.state.contactList.filter((u) => u.isFavorite == true)}
                             />
+                            </div>
                         </div>
                         <div className="row py-2">
+                        <div className="col-8 offset-2 row">
                             <GeneralContact
                             contacts={this.state.contactList.filter((u) => u.isFavorite == false)}
                             />
+                            </div>
                         </div>
                     </div>
                 </div>
